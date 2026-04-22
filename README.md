@@ -35,7 +35,7 @@ Permite o desacoplamento entre:
 
 ```bash
 flutter pub add get
----
+
 ````
 ## 📌 Uso do GetX no Projeto
 
