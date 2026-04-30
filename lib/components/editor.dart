@@ -6,45 +6,64 @@ class Editor extends StatelessWidget {
   final String hint;
   final IconData? icone;
 
-  Editor(this.controlador, this.rotulo, this.hint, [this.icone]);
+  const Editor(this.controlador, this.rotulo, this.hint, [this.icone]);
 
   @override
   Widget build(BuildContext context) {
-    final roxoPrincipal = Colors.deepPurple.shade400;
-    final roxoSuave = Colors.deepPurple.shade100;
-    final roxoClaro = Colors.deepPurple.shade50;
+    const tealPrincipal = Color(0xFF00897B); // teal 600
+    const tealSuave = Color(0xFFB2DFDB); // teal 100
+    const fundo = Color(0xFFF5F5F5); // neutro claro
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: TextFormField(
+        controller: controlador,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
             return 'Campo obrigatório';
           }
           return null;
         },
-        controller: controlador,
-        style: TextStyle(fontSize: 18.0, color: Colors.grey[800]),
+
+        style: const TextStyle(fontSize: 16, color: Colors.black87),
+
         decoration: InputDecoration(
           filled: true,
-          fillColor: roxoClaro,
+          fillColor: fundo,
 
-          icon: icone != null ? Icon(icone, color: roxoPrincipal) : null,
+          prefixIcon: icone != null ? Icon(icone, color: tealPrincipal) : null,
 
           labelText: rotulo,
-          labelStyle: TextStyle(color: roxoPrincipal),
+          labelStyle: const TextStyle(color: tealPrincipal),
 
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.grey[500]),
+          hintStyle: TextStyle(color: Colors.grey.shade500),
+
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
 
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: roxoSuave, width: 1.5),
+            borderSide: BorderSide(color: tealSuave, width: 1.5),
           ),
 
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: roxoPrincipal, width: 2),
+            borderSide: const BorderSide(color: tealPrincipal, width: 2),
+          ),
+
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
+          ),
+
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.red, width: 2),
           ),
         ),
       ),

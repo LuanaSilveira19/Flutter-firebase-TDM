@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Livro {
   String id;
   String titulo;
@@ -5,6 +7,7 @@ class Livro {
   String autor;
   String status;
   String avaliacao;
+  Timestamp timestamp;
 
   Livro({
     required this.autor,
@@ -13,6 +16,7 @@ class Livro {
     required this.id,
     required this.status,
     required this.titulo,
+    required this.timestamp,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +26,7 @@ class Livro {
       'autor': autor,
       'status': status,
       'avaliacao': avaliacao,
+      'timestamp': FieldValue.serverTimestamp(),
     };
   }
 
@@ -33,6 +38,9 @@ class Livro {
       id: id,
       status: map['status'] as String,
       titulo: map['titulo'] as String,
+      timestamp: map['timestamp'] != null
+          ? map['timestamp'] as Timestamp
+          : Timestamp.now(),
     );
   }
 }

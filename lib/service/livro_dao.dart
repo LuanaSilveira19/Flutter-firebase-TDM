@@ -39,8 +39,8 @@ class LivroDao {
       }
       return lista;
     } catch (e) {
-      print('ERRO: $e');
-      return [];
+      print('ERRO REAL FIRESTORE: $e');
+      rethrow;
     }
   }
 }
